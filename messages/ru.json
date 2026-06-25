@@ -1,0 +1,43 @@
+{
+  "wiki": {
+    "featuredArticle": "Избранная статья",
+    "onThisDay": "В этот день",
+    "readArticle": "Читать статью",
+    "noFeatured": "Избранная статья сегодня недоступна",
+    "noEvents": "Нет доступных событий",
+    "search": "Поиск по Википедии",
+    "searchPlaceholder": "Искать статьи...",
+    "contents": "Содержание",
+    "references": "Ссылки",
+    "relatedArticles": "Похожие статьи",
+    "externalLinks": "Внешние ссылки",
+    "lastUpdated": "Последнее обновление",
+    "searchHint": "Используйте строку поиска для поиска статей",
+    "resultsFor": "{count} результатов по запросу «{query}»",
+    "welcomeBack": "С возвращением! Ваш центр знаний о мире.",
+    "continueReading": "Продолжить чтение",
+    "recentlyViewed": "Недавно просмотренные",
+    "readingList": "Список чтения",
+    "exploreTopics": "Обзор тем",
+    "viewAllHistory": "Все",
+    "viewAllSaved": "Все сохранённые",
+    "viewMoreEvents": "Больше событий",
+    "browseAllTopics": "Все темы",
+    "continueLink": "Продолжить",
+    "noHistory": "Прочитанные статьи появятся здесь",
+    "noBookmarks": "Сохраняйте статьи для чтения позже",
+    "article": "Статья",
+    "talk": "Обсуждение",
+    "read": "Читать",
+    "viewHistory": "История",
+    "languages": "языков"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Что-то пошло не так",
+    "retry": "Повторить",
+    "back": "Назад",
+    "home": "Главная",
+    "noResults": "Ничего не найдено"
+  }
+}

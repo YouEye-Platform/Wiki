@@ -1,0 +1,43 @@
+{
+  "wiki": {
+    "featuredArticle": "Artículo destacado",
+    "onThisDay": "Un día como hoy",
+    "readArticle": "Leer artículo",
+    "noFeatured": "No hay artículo destacado hoy",
+    "noEvents": "No hay eventos disponibles",
+    "search": "Buscar en Wikipedia",
+    "searchPlaceholder": "Buscar artículos...",
+    "contents": "Contenido",
+    "references": "Referencias",
+    "relatedArticles": "Artículos relacionados",
+    "externalLinks": "Enlaces externos",
+    "lastUpdated": "Última actualización",
+    "searchHint": "Usa la barra de búsqueda para encontrar artículos",
+    "resultsFor": "{count} resultados para \"{query}\"",
+    "welcomeBack": "Bienvenido de nuevo! Tu centro de conocimiento.",
+    "continueReading": "Seguir leyendo",
+    "recentlyViewed": "Vistos recientemente",
+    "readingList": "Lista de lectura",
+    "exploreTopics": "Explorar temas",
+    "viewAllHistory": "Ver todo",
+    "viewAllSaved": "Ver todas las páginas guardadas",
+    "viewMoreEvents": "Ver más eventos",
+    "browseAllTopics": "Ver todos los temas",
+    "continueLink": "Continuar",
+    "noHistory": "Los artículos que leas aparecerán aquí",
+    "noBookmarks": "Guarda artículos para leer más tarde",
+    "article": "Artículo",
+    "talk": "Discusión",
+    "read": "Leer",
+    "viewHistory": "Ver historial",
+    "languages": "idiomas"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "retry": "Reintentar",
+    "back": "Atrás",
+    "home": "Inicio",
+    "noResults": "Sin resultados"
+  }
+}

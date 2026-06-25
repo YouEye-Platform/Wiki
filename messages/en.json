@@ -1,0 +1,43 @@
+{
+  "wiki": {
+    "featuredArticle": "Featured article",
+    "onThisDay": "On this day",
+    "readArticle": "Read article",
+    "noFeatured": "No featured article available today",
+    "noEvents": "No events available",
+    "search": "Search Wikipedia",
+    "searchPlaceholder": "Search articles...",
+    "contents": "Contents",
+    "references": "References",
+    "relatedArticles": "Related Articles",
+    "externalLinks": "External Links",
+    "lastUpdated": "Last updated",
+    "searchHint": "Use the search bar above to find articles",
+    "resultsFor": "{count} results for \"{query}\"",
+    "welcomeBack": "Welcome back! Your knowledge hub for the world's information.",
+    "continueReading": "Continue reading",
+    "recentlyViewed": "Recently viewed",
+    "readingList": "Reading list",
+    "exploreTopics": "Explore topics",
+    "viewAllHistory": "View all",
+    "viewAllSaved": "View all saved pages",
+    "viewMoreEvents": "View more events",
+    "browseAllTopics": "Browse all topics",
+    "continueLink": "Continue",
+    "noHistory": "Articles you read will appear here",
+    "noBookmarks": "Save articles to read later",
+    "article": "Article",
+    "talk": "Talk",
+    "read": "Read",
+    "viewHistory": "View history",
+    "languages": "languages"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "back": "Back",
+    "home": "Home",
+    "noResults": "No results found"
+  }
+}

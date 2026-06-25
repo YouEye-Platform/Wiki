@@ -1,0 +1,43 @@
+{
+  "wiki": {
+    "featuredArticle": "Article du jour",
+    "onThisDay": "Un jour comme aujourd'hui",
+    "readArticle": "Lire l'article",
+    "noFeatured": "Pas d'article du jour disponible",
+    "noEvents": "Aucun événement disponible",
+    "search": "Rechercher sur Wikipédia",
+    "searchPlaceholder": "Rechercher des articles...",
+    "contents": "Sommaire",
+    "references": "Références",
+    "relatedArticles": "Articles connexes",
+    "externalLinks": "Liens externes",
+    "lastUpdated": "Dernière mise à jour",
+    "searchHint": "Utilisez la barre de recherche pour trouver des articles",
+    "resultsFor": "{count} résultats pour \"{query}\"",
+    "welcomeBack": "Bon retour ! Votre centre de connaissances.",
+    "continueReading": "Continuer la lecture",
+    "recentlyViewed": "Consultés récemment",
+    "readingList": "Liste de lecture",
+    "exploreTopics": "Explorer les sujets",
+    "viewAllHistory": "Tout voir",
+    "viewAllSaved": "Toutes les pages sauvegardées",
+    "viewMoreEvents": "Plus d'événements",
+    "browseAllTopics": "Tous les sujets",
+    "continueLink": "Continuer",
+    "noHistory": "Les articles que vous lirez apparaîtront ici",
+    "noBookmarks": "Enregistrez des articles pour plus tard",
+    "article": "Article",
+    "talk": "Discussion",
+    "read": "Lire",
+    "viewHistory": "Historique",
+    "languages": "langues"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "back": "Retour",
+    "home": "Accueil",
+    "noResults": "Aucun résultat"
+  }
+}
