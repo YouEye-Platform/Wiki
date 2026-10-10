@@ -1,11 +1,10 @@
 import { createInterAppHandler } from "@/lib/routes/inter-app";
 import { searchWikipedia, getArticleSummary } from "@/lib/wikipedia/client";
 
-export const POST = createInterAppHandler({
-  search: async (data) => {
+export const POST = createInterAppHandler("ye-wiki", {
+  search: async (data, { userId }) => {
     const q = String(data.query ?? "");
     const lang = String(data.lang ?? "en");
-    const userId = typeof data.userId === "string" ? data.userId : undefined;
     if (!q) return { provider: "ye-wiki", results: [] };
 
     const { results } = await searchWikipedia(q, 5, lang, userId);
@@ -19,14 +18,13 @@ export const POST = createInterAppHandler({
     };
   },
 
-  "info-card": async (data) => {
+  "info-card": async (data, { userId }) => {
     const url = String(data.url ?? "");
     const match = url.match(/([a-z-]+)\.wikipedia\.org\/wiki\/(.+)/);
     if (!match) return { error: "URL not recognized" };
 
     const lang = match[1];
     const title = decodeURIComponent(match[2]);
-    const userId = typeof data.userId === "string" ? data.userId : undefined;
     const summary = await getArticleSummary(title, lang, userId);
 
     return {
@@ -38,10 +36,9 @@ export const POST = createInterAppHandler({
     };
   },
 
-  "get-article-summary": async (data) => {
+  "get-article-summary": async (data, { userId }) => {
     const title = String(data.title ?? "");
     const lang = String(data.lang ?? "en");
-    const userId = typeof data.userId === "string" ? data.userId : undefined;
     if (!title) return { error: "Missing title" };
 
     const summary = await getArticleSummary(title, lang, userId);

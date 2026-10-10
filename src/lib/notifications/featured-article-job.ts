@@ -11,6 +11,7 @@
 
 import { getFeaturedContent } from "@/lib/wikipedia/client";
 import { sendNotification } from "./sender";
+import { appServiceHeaders } from "@/lib/api/service-headers";
 
 const YOUEYE_UI_URL =
   process.env.YOUEYE_API_URL ?? "http://youeye-ui.youeye:3000";
@@ -18,14 +19,16 @@ const YOUEYE_UI_URL =
 let lastRunDate: string | null = null;
 let intervalId: ReturnType<typeof setInterval> | null = null;
 
-/** Get all user IDs from YE-UI (admin endpoint) */
+/**
+ * This legacy scheduler has no app-owned recipient contract. A scoped app
+ * credential does not authorize the browser/admin user directory; denial is
+ * expected until recipients can come from an authenticated app subscription.
+ */
 async function getAllUserIds(): Promise<string[]> {
   try {
     const res = await fetch(`${YOUEYE_UI_URL}/api/v1/users`, {
-      headers: {
-        "Content-Type": "application/json",
-        "X-App-Slug": "wiki",
-      },
+      headers: appServiceHeaders({ "Content-Type": "application/json" }),
+      redirect: "error",
       signal: AbortSignal.timeout(10_000),
     });
     if (!res.ok) return [];
@@ -55,7 +58,7 @@ async function runFeaturedArticleNotification(): Promise<void> {
   try {
     const userIds = await getAllUserIds();
     if (userIds.length === 0) {
-      console.log("[Featured Article Job] No users found to notify");
+      console.log("[Featured Article Job] App-scoped notification recipients are unavailable");
       return;
     }
 
