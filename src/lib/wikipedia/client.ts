@@ -9,6 +9,7 @@
  */
 
 import { internetFetch } from "@/lib/internet";
+import { articleBody } from "./article-body.mjs";
 
 const DEFAULT_LANG = "en";
 
@@ -317,7 +318,7 @@ export function rewriteHtml(
   lang = DEFAULT_LANG
 ): string {
   return (
-    html
+    articleBody(html)
       // ── Strip <base> tag (Wikipedia REST API sets base to en.wikipedia.org,
       //    which breaks our relative proxy URLs when injected via dangerouslySetInnerHTML) ──
       .replace(/<base[^>]*>/gi, "")

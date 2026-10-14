@@ -4,11 +4,11 @@ Privacy-friendly article reader for the [YouEye](https://github.com/YouEye-Platf
 
 Wiki runs as a native YouEye app. It is installed by the Control Panel from GitHub releases, receives identity and launch context from YouEye, and exposes dashboard, settings, and notification surfaces back to the platform.
 
-Current development source version: `0.4.4.1.0.2`
+The version in `package.json` and `youeye-app.yaml` is the exact source version.
 
 ## Features
 
-- Article browsing with clean reading layouts
+- Article browsing with responsive reading controls and body-only upstream HTML
 - Search and featured article surfaces
 - Reading-focused dashboard widgets
 - App-owned settings panel for YouEye Settings
