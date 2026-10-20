@@ -4,3 +4,6 @@ public/sw.js
 .env
 .env.local
 *.tar
+
+# TypeScript incremental compiler cache
+*.tsbuildinfo

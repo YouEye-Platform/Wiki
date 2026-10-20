@@ -35,7 +35,7 @@ pnpm install
 pnpm dev
 ```
 
-The app uses Next.js 15, TypeScript, Tailwind CSS, and the shared native-app surface contract used by YouEye apps.
+The app uses Next.js 16, TypeScript, Tailwind CSS, and the shared native-app surface contract used by YouEye apps.
 
 ## Build and release checks
 
@@ -99,3 +99,26 @@ identity and leaves recipients unavailable on denial. Automatic delivery needs
 an app-owned authenticated subscription contract; do not grant the scheduler
 administrator or browser authority to make that endpoint succeed. Interactive
 Wiki and user-scoped notification calls keep their normal session-derived user.
+
+## Web build baseline
+
+Use Node 24.22.0 and pnpm 10.6.2 with the committed frozen lockfile.
+Next.js 16.4.2 builds explicitly use webpack for Serwist 9.5.13; run `pnpm lint`
+and `pnpm typecheck` separately. Static-only offline caching excludes private
+API, HTML and RSC responses.
+
+The signed standalone payload carries the exact Node runtime and upstream licence
+in `.youeye-runtime`. The existing `server.js` entrypoint forwards to this runtime,
+so native update/recovery switches application and runtime together.
+
+The remaining `braces` advisory is confined to build-time lint glob patterns;
+there is no upstream fix. Alex reviews this and the ESLint 9 compatibility hold
+on the next Web patch or by 2026-11-19. Do not introduce untrusted glob patterns.
+
+### Platform locale
+
+The authenticated platform header supplies the resolved personal or instance
+locale. The app uses it for the document language and, where present, its
+next-intl provider and message request. Missing or unsupported values fall back
+to English. Locale propagation does not supply new translated strings. Keep
+header responses out of browser caches and test user changes independently.
