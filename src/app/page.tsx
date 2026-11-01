@@ -22,20 +22,29 @@ import {
   Calendar,
   Compass,
   Star,
+  Landmark,
+  FlaskConical,
+  Globe,
+  Cpu,
+  Palette,
+  Trophy,
+  Leaf,
+  TrainFront,
 } from "lucide-react";
 import { ReadingListSection } from "@/components/home-client-sections";
+import { resolveAppLocale } from "@/lib/locale";
 
 export const revalidate = 3600;
 
 const EXPLORE_TOPICS = [
-  { name: "History", slug: "History", icon: "🏛️" },
-  { name: "Science", slug: "Science", icon: "🔬" },
-  { name: "Geography", slug: "Geography", icon: "🌍" },
-  { name: "Technology", slug: "Technology", icon: "💻" },
-  { name: "Arts", slug: "Arts", icon: "🎨" },
-  { name: "Sports", slug: "Sport", icon: "⚽" },
-  { name: "Nature", slug: "Nature", icon: "🌿" },
-  { name: "Transport", slug: "Transport", icon: "🚂" },
+  { name: "History", slug: "History", icon: Landmark },
+  { name: "Science", slug: "Science", icon: FlaskConical },
+  { name: "Geography", slug: "Geography", icon: Globe },
+  { name: "Technology", slug: "Technology", icon: Cpu },
+  { name: "Arts", slug: "Arts", icon: Palette },
+  { name: "Sports", slug: "Sport", icon: Trophy },
+  { name: "Nature", slug: "Nature", icon: Leaf },
+  { name: "Transport", slug: "Transport", icon: TrainFront },
 ];
 
 export default async function WikiHomePage({
@@ -46,14 +55,19 @@ export default async function WikiHomePage({
   const sp = await searchParams;
   const session = await getSession("ye-wiki").catch(() => null);
   let lang = sp.lang ?? "en";
+  let uiLocale = resolveAppLocale(undefined);
 
-  if (!sp.lang && session) {
+  if (session) {
     const api = createApiClient("ye-wiki");
-    const settings = await api.getUserSettings(session.userId);
-    lang = (settings.language as string) ?? "en";
+    const [settings, headerConfig] = await Promise.all([
+      sp.lang ? Promise.resolve(null) : api.getUserSettings(session.userId),
+      api.fetchHeaderConfig(session.userId),
+    ]);
+    if (settings) lang = (settings.language as string) ?? "en";
+    uiLocale = resolveAppLocale(headerConfig?.locale);
   }
 
-  const t = await getTranslations("wiki");
+  const t = await getTranslations({ locale: uiLocale, namespace: "wiki" });
 
   const featured = await getFeaturedContent(undefined, lang, session?.userId).catch(() => null);
   const tfa = featured?.tfa;
@@ -61,22 +75,13 @@ export default async function WikiHomePage({
 
   const appBase = process.env.APP_BASE_URL ?? "";
 
-  // Event dot colors cycle
-  const dotColors = [
-    "bg-blue-500",
-    "bg-emerald-500",
-    "bg-amber-500",
-    "bg-violet-500",
-    "bg-rose-500",
-  ];
-
   return (
-    <div className="max-w-[1100px] mx-auto px-4 py-6">
+    <div className="wiki-discovery max-w-[1100px] mx-auto px-4 py-6">
 
       {/* ── Main Grid ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-10">
         {/* ── Left Column ── */}
-        <div className="space-y-6">
+        <div className="space-y-9">
           {/* Featured Article */}
           <section>
             <div className="flex items-center justify-between mb-3">
@@ -90,18 +95,18 @@ export default async function WikiHomePage({
                 href={`/wiki/${encodeURIComponent(tfa.title.replace(/ /g, "_"))}?lang=${lang}`}
                 className="block group"
               >
-                <div className="rounded-xl border border-border bg-card overflow-hidden hover:shadow-md hover:border-border/70 transition-all">
+                <div className="wiki-feature rounded-2xl border border-border bg-card overflow-hidden hover:border-foreground/30 transition-colors">
                   {tfa.thumbnail && (
-                    <div className="w-full h-40 overflow-hidden bg-muted">
+                    <div className="w-full h-52 overflow-hidden bg-muted">
                       <img
                         src={proxyImageUrl(tfa.thumbnail.source, appBase)}
                         alt={tfa.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover "
                       />
                     </div>
                   )}
-                  <div className="p-4">
-                    <h3 className="text-base font-serif font-bold text-card-foreground group-hover:text-primary transition-colors mb-1">
+                  <div className="p-5">
+                    <h3 className="text-2xl font-serif font-normal text-card-foreground group-hover:text-primary transition-colors mb-1">
                       {(tfa.displaytitle ?? tfa.title).replace(/<[^>]*>/g, "")}
                     </h3>
                     {tfa.description && (
@@ -109,7 +114,7 @@ export default async function WikiHomePage({
                         {tfa.description}
                       </p>
                     )}
-                    <p className="text-sm leading-relaxed text-card-foreground/80 line-clamp-3">
+                    <p className="text-sm leading-relaxed text-card-foreground/80 line-clamp-4">
                       {tfa.extract}
                     </p>
                     <span className="inline-flex items-center gap-1 mt-3 text-xs text-primary font-medium group-hover:gap-1.5 transition-all">
@@ -130,7 +135,7 @@ export default async function WikiHomePage({
         </div>
 
         {/* ── Right Column ── */}
-        <div className="space-y-6">
+        <div className="space-y-9">
           {/* On This Day */}
           <section>
             <div className="flex items-center justify-between mb-3">
@@ -145,7 +150,7 @@ export default async function WikiHomePage({
                   <div key={i} className="flex items-start gap-3">
                     <div className="relative mt-1.5">
                       <div
-                        className={`w-2.5 h-2.5 rounded-full ${dotColors[i % dotColors.length]}`}
+                        className="w-1.5 h-1.5 rounded-full bg-muted-foreground"
                       />
                       {i < onThisDay.length - 1 && (
                         <div className="absolute top-3 left-1/2 -translate-x-1/2 w-px h-6 bg-border" />
@@ -155,7 +160,7 @@ export default async function WikiHomePage({
                       <span className="text-xs font-semibold text-muted-foreground">
                         {event.year}
                       </span>
-                      <p className="text-sm leading-snug text-foreground/90 mt-0.5">
+                      <p className="text-sm leading-relaxed text-foreground/90 mt-0.5">
                         {event.text}
                       </p>
                       {event.pages?.[0] && (
@@ -194,8 +199,8 @@ export default async function WikiHomePage({
                   className="flex items-center justify-between py-2 px-2 -mx-2 rounded-lg hover:bg-accent/50 transition-colors group"
                 >
                   <span className="text-sm text-foreground group-hover:text-primary transition-colors flex items-center gap-2.5">
-                    <span className="text-base">{topic.icon}</span>
-                    {topic.name}
+                    <topic.icon className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                    {t(`topics.${topic.name.toLowerCase()}`)}
                   </span>
                   <ArrowRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
                 </Link>

@@ -1,3 +1,4 @@
+import { getActivityTranslator } from "@/i18n/activity";
 /**
  * Featured Article Daily Notification Job
  *
@@ -64,19 +65,20 @@ async function runFeaturedArticleNotification(): Promise<void> {
 
     let sent = 0;
     for (const userId of userIds) {
+      const { t } = await getActivityTranslator(userId);
       const featured = await getFeaturedContent(undefined, "en", userId);
       const article = featured?.tfa;
       if (!article) continue;
 
-      const title = article.displaytitle ?? article.title ?? "Featured Article";
+      const title = article.displaytitle ?? article.title ?? t("mdc269f448f66");
       const excerpt =
         article.extract ??
         article.description ??
-        "Check out today's featured article on Wikipedia.";
+        t("m0985d53595d6");
       const body = excerpt.length > 200 ? excerpt.slice(0, 197) + "..." : excerpt;
 
       const ok = await sendNotification({
-        title: `Today's Featured Article: ${title}`,
+        title: t("m306faa55e09e", {title}),
         body,
         type: "info",
         actionUrl: `/wiki/article/${encodeURIComponent(title)}`,
@@ -126,16 +128,17 @@ export async function triggerFeaturedArticleNow(): Promise<void> {
   try {
     const userIds = await getAllUserIds();
     for (const userId of userIds) {
+      const { t } = await getActivityTranslator(userId);
       const featured = await getFeaturedContent(undefined, "en", userId);
       const article = featured?.tfa;
       if (!article) continue;
 
-      const title = article.displaytitle ?? article.title ?? "Featured Article";
-      const excerpt = article.extract ?? article.description ?? "Check out today's featured article.";
+      const title = article.displaytitle ?? article.title ?? t("mdc269f448f66");
+      const excerpt = article.extract ?? article.description ?? t("m0985d53595d6");
       const body = excerpt.length > 200 ? excerpt.slice(0, 197) + "..." : excerpt;
 
       await sendNotification({
-        title: `Today's Featured Article: ${title}`,
+        title: t("m306faa55e09e", {title}),
         body,
         type: "info",
         actionUrl: `/wiki/article/${encodeURIComponent(title)}`,

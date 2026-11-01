@@ -1,3 +1,4 @@
+
 /**
  * Wiki Search Page — Wikipedia-style search results
  *
@@ -19,7 +20,8 @@ interface SearchPageProps {
 
 export async function generateMetadata({ searchParams }: SearchPageProps) {
   const { q } = await searchParams;
-  return { title: q ? `"${q}" — Wiki Search` : "Search — Wiki" };
+  const t = await getTranslations("wiki");
+  return { title: q ? t("searchTitle", { query: q }) : t("search") };
 }
 
 async function getResultThumbnails(
@@ -99,8 +101,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
       {/* Results header */}
       <p className="text-sm text-muted-foreground mb-4 pb-2 border-b border-border">
-        {total.toLocaleString()} results for{" "}
-        <strong className="text-foreground">&ldquo;{q}&rdquo;</strong>
+        {t("resultsFor", { count: total, query: q })}
         {lang !== "en" && (
           <span className="ml-1 text-xs">({lang}.wikipedia.org)</span>
         )}
@@ -137,7 +138,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                     }}
                   />
                   <span className="text-xs text-muted-foreground mt-1 inline-block">
-                    {result.wordcount.toLocaleString()} words
+                    {t("wordCount", { count: result.wordcount })}
                   </span>
                 </div>
                 {thumb && (

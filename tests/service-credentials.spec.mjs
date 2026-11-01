@@ -46,6 +46,7 @@ test("legacy featured scheduler sends scoped credentials and cannot turn admin-d
       exports, process: { env: runtime }, AbortSignal, console: { log() {}, warn() {} },
       require(name) {
         if (name === "@/lib/api/service-headers") return { appServiceHeaders: load(runtime) };
+        if (name === "@/i18n/activity") return { getActivityTranslator: async () => { assert.fail("No admitted recipient"); } };
         if (name === "./sender") return { sendNotification: async () => { notifications++; } };
         if (name === "@/lib/wikipedia/client") return { getFeaturedContent: async () => { assert.fail("No admitted recipient"); } };
         throw new Error("Unexpected module");

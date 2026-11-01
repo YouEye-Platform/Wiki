@@ -1,3 +1,5 @@
+import { useTranslations as useInterfaceTranslations } from "next-intl";
+import { getTranslations as getInterfaceTranslations } from "next-intl/server";
 /**
  * Widget Embed Page — visual display of wiki widgets for YE-UI dashboard
  *
@@ -14,6 +16,8 @@ interface WidgetPageProps {
 }
 
 async function FeaturedArticleWidget() {
+  const translateInterface = await getInterfaceTranslations("interface");
+
   try {
     const session = await getSession("ye-wiki").catch(() => null);
     const featured = await getFeaturedContent(undefined, "en", session?.userId);
@@ -22,8 +26,7 @@ async function FeaturedArticleWidget() {
     if (!tfa) {
       return (
         <div className="flex items-center justify-center h-full p-4 text-sm text-muted-foreground">
-          No featured article available today.
-        </div>
+          {translateInterface("m241ed7e42608")}</div>
       );
     }
 
@@ -61,8 +64,7 @@ async function FeaturedArticleWidget() {
             target="_top"
             className="inline-flex items-center gap-1 mt-2.5 text-xs text-primary font-medium hover:underline"
           >
-            Read article
-            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            {translateInterface("m5cba5417a8cb")}<svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </a>
@@ -72,13 +74,14 @@ async function FeaturedArticleWidget() {
   } catch {
     return (
       <div className="flex items-center justify-center h-full p-4 text-sm text-muted-foreground">
-        Unable to load featured content.
-      </div>
+        {translateInterface("m3bbfb193ac99")}</div>
     );
   }
 }
 
 async function TodayInHistoryWidget() {
+  const translateInterface = await getInterfaceTranslations("interface");
+
   const dotColors = [
     "bg-blue-500",
     "bg-emerald-500",
@@ -95,16 +98,14 @@ async function TodayInHistoryWidget() {
     if (events.length === 0) {
       return (
         <div className="flex items-center justify-center h-full p-4 text-sm text-muted-foreground">
-          No events available for today.
-        </div>
+          {translateInterface("m356cf90af7f7")}</div>
       );
     }
 
     return (
       <div className="p-3.5">
         <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-          On this day
-        </h3>
+          {translateInterface("md011904834fe")}</h3>
         <div className="space-y-3">
           {events.map((event, i) => {
             const url = event.pages?.[0]
@@ -147,16 +148,17 @@ async function TodayInHistoryWidget() {
   } catch {
     return (
       <div className="flex items-center justify-center h-full p-4 text-sm text-muted-foreground">
-        Unable to load events.
-      </div>
+        {translateInterface("mc88c9a64c868")}</div>
     );
   }
 }
 
 function UnknownWidget({ widgetId }: { widgetId: string }) {
+  const translateInterface = useInterfaceTranslations("interface");
+
   return (
     <div className="flex items-center justify-center h-full p-4 text-sm text-muted-foreground">
-      Unknown widget: {widgetId}
+      {translateInterface("m05ac5fdd1798")}{" "}{widgetId}
     </div>
   );
 }

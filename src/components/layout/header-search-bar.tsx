@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations as useInterfaceTranslations } from "next-intl";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Search, X, Loader2 } from "lucide-react";
@@ -9,6 +10,8 @@ import { Search, X, Loader2 } from "lucide-react";
  * Visible on all pages. Autocomplete suggestions via /api/wiki/suggest.
  */
 export function HeaderSearchBar({ lang = "en" }: { lang?: string }) {
+  const translateInterface = useInterfaceTranslations("interface");
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -128,7 +131,7 @@ export function HeaderSearchBar({ lang = "en" }: { lang?: string }) {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-            placeholder="Search Wiki..."
+            placeholder={translateInterface("m9b587e12f85e")}
             className="h-9 w-full rounded-full border border-input bg-background/50 pl-9 pr-16 text-sm text-foreground shadow-sm placeholder:text-muted-foreground outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:bg-background"
           />
           {loading && (
@@ -137,6 +140,7 @@ export function HeaderSearchBar({ lang = "en" }: { lang?: string }) {
           {query && !loading && (
             <button
               type="button"
+              aria-label={translateInterface("clearSearch")}
               onClick={() => {
                 setQuery("");
                 setSuggestions([]);
@@ -149,6 +153,7 @@ export function HeaderSearchBar({ lang = "en" }: { lang?: string }) {
           )}
           <button
             type="submit"
+            aria-label={translateInterface("m4516b1f8300d")}
             className="absolute right-1.5 rounded-full bg-primary p-1.5 text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             <Search className="h-3 w-3" />

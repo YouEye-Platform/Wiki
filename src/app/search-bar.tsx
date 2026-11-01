@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations as useInterfaceTranslations } from "next-intl";
 /**
  * SearchBar — Wikipedia-style search with autocomplete
  *
@@ -5,7 +8,7 @@
  * search bar width and feel. Uses shadcn Input styling.
  */
 
-"use client";
+
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Search } from "lucide-react";
@@ -17,6 +20,8 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ lang = "en", initialQuery = "" }: SearchBarProps) {
+  const translateInterface = useInterfaceTranslations("interface");
+
   const [query, setQuery] = useState(initialQuery);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -98,7 +103,7 @@ export function SearchBar({ lang = "en", initialQuery = "" }: SearchBarProps) {
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             onKeyDown={handleKeyDown}
-            placeholder="Search Wiki"
+            placeholder={translateInterface("m4516b1f8300d")}
             className="w-full h-10 pl-10 pr-3 text-sm border border-border rounded-l-md bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 transition-all placeholder:text-muted-foreground/60"
             autoComplete="off"
           />
@@ -107,8 +112,7 @@ export function SearchBar({ lang = "en", initialQuery = "" }: SearchBarProps) {
           onClick={() => handleSubmit(query)}
           className="h-10 px-4 bg-primary text-primary-foreground text-sm font-medium rounded-r-md hover:bg-primary/90 transition-colors border border-l-0 border-primary"
         >
-          Search
-        </button>
+          {translateInterface("m49c266baaaa7")}</button>
       </div>
 
       {/* Autocomplete dropdown */}

@@ -1,3 +1,4 @@
+import { postAdmittedTimeline } from "./timeline";
 import { appServiceHeaders } from "./service-headers";
 /**
  * @youeye/canvas/api — YouEye platform API client
@@ -102,14 +103,7 @@ export function createApiClient(appId: string): YouEyeApiClient {
     },
 
     async postTimelineEntry(userId: string, collection: string, data: Record<string, unknown>) {
-      try {
-        // Use main /timeline endpoint (supports service auth via X-YouEye-App + X-YouEye-User).
-        // The /timeline/{collection} route requires session auth + active PIN which isn't
-        // available in server-to-server calls from native apps.
-        await youeyeFetch("/timeline", { method: "POST", body: JSON.stringify({ ...data, collection }) }, userId);
-      } catch {
-        // Non-critical — timeline is best-effort
-      }
+      await postAdmittedTimeline(youeyeFetch, userId, collection, data);
     },
 
     async getLaunchRequirements(userId: string): Promise<LaunchRequirements | null> {

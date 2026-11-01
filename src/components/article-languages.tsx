@@ -4,6 +4,8 @@
  */
 
 "use client";
+import { useTranslations as useInterfaceTranslations } from "next-intl";
+
 
 import { useState } from "react";
 import { Globe, ChevronDown, ChevronUp } from "lucide-react";
@@ -21,6 +23,8 @@ export function ArticleLanguages({
   currentLang,
   languages,
 }: ArticleLanguagesProps) {
+  const translateInterface = useInterfaceTranslations("interface");
+
   const [expanded, setExpanded] = useState(false);
 
   if (languages.length === 0) return null;
@@ -51,11 +55,11 @@ export function ArticleLanguages({
         >
           {expanded ? (
             <>
-              less <ChevronUp className="h-3 w-3" />
+              {translateInterface("m4fdd3b6201a2")}<ChevronUp className="h-3 w-3" />
             </>
           ) : (
             <>
-              +{languages.length - 10} more <ChevronDown className="h-3 w-3" />
+              +{languages.length - 10} {translateInterface("m187897ce0afc")}<ChevronDown className="h-3 w-3" />
             </>
           )}
         </button>

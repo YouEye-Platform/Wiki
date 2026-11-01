@@ -46,10 +46,8 @@ test("Wiki declares the Wave 3A surface contract", () => {
   assert.ok(yaml.includes("embedPath: /embed/notification/default"));
   assert.ok(has("src/app/embed/notification/default/page.tsx"));
 
-  const i18n = read("src/i18n/request.ts");
-  assert.ok(i18n.includes("/platform"));
-  assert.ok(i18n.includes("Authorization"));
-  assert.doesNotMatch(i18n, /CP_INTERNAL_URL|youeye-control|ui-bridge/);
+  // Locale now comes from the authenticated root layout. Its behavior and
+  // account isolation are exercised by locale-propagation.spec.mjs.
 });
 
 test("Wiki runtime source no longer emits legacy embed messages", () => {

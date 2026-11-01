@@ -1,3 +1,4 @@
+import { getTranslations as getInterfaceTranslations } from "next-intl/server";
 /**
  * Wiki Info Card — Knowledge Panel embed for Search RHS
  *
@@ -39,16 +40,18 @@ function extractArticleInfo(
 export default async function ArticleCardPage({
   searchParams,
 }: CardPageProps) {
+  const translateInterface = await getInterfaceTranslations("interface");
+
   const params = await searchParams;
   const { url } = params;
 
   if (!url) {
-    return <CardError message="No URL provided" />;
+    return <CardError message={translateInterface("mad585f4506b2")} />;
   }
 
   const info = extractArticleInfo(url);
   if (!info) {
-    return <CardError message="URL not recognized" />;
+    return <CardError message={translateInterface("m05a5dd92e1f4")} />;
   }
 
   try {
@@ -145,8 +148,7 @@ export default async function ArticleCardPage({
             className="inline-flex items-center gap-1.5 text-sm font-medium font-sans text-primary hover:text-primary/80 transition-colors"
           >
             <BookOpen className="h-3.5 w-3.5" />
-            Read full article
-          </a>
+            {translateInterface("md93d77988d88")}</a>
           <span className="text-border">·</span>
           <a
             href={wikiUrl}
@@ -161,7 +163,7 @@ export default async function ArticleCardPage({
       </div>
     );
   } catch {
-    return <CardError message="Failed to load article" />;
+    return <CardError message={translateInterface("m715411442623")} />;
   }
 }
 

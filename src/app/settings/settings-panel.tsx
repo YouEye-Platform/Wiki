@@ -1,3 +1,4 @@
+import { getTranslations as getInterfaceTranslations } from "next-intl/server";
 import { getSession } from "@/lib/auth";
 import { createApiClient } from "@/lib/api";
 import { getAvailableLanguages } from "@/lib/wikipedia/client";
@@ -7,6 +8,8 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export async function WikiSettingsPanel({ embedded = false }: { embedded?: boolean }) {
+  const translateInterface = await getInterfaceTranslations("interface");
+
   const session = await getSession("ye-wiki");
   if (!session) redirect("/api/auth/sso");
 
@@ -27,21 +30,18 @@ export async function WikiSettingsPanel({ embedded = false }: { embedded?: boole
             className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Wiki
-          </Link>
-          <h1 className="text-2xl font-bold text-foreground">Wiki Settings</h1>
+            {translateInterface("m76f5d2c331a8")}</Link>
+          <h1 className="text-2xl font-bold text-foreground">{translateInterface("mcdd73b9178aa")}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Configure your Wikipedia reading preferences
-          </p>
+            {translateInterface("mfb44b993f75c")}</p>
         </div>
       )}
 
       <div className="space-y-6">
         <div className="rounded-xl border border-border/60 bg-card p-6">
-          <h2 className="mb-1 text-lg font-semibold">Wikipedia Language</h2>
+          <h2 className="mb-1 text-lg font-semibold">{translateInterface("m4955f8f17f6a")}</h2>
           <p className="mb-4 text-sm text-muted-foreground">
-            Choose which Wikipedia language edition to browse. All 300+ languages are available.
-          </p>
+            {translateInterface("m87e666fc4785")}</p>
           <LanguageSelector languages={languages} currentLanguage={currentLanguage} />
         </div>
       </div>

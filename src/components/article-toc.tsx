@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations as useInterfaceTranslations } from "next-intl";
 /**
  * Table of Contents — Sticky sidebar on desktop, collapsible inline on mobile.
  *
@@ -5,9 +8,9 @@
  * hierarchical navigation list with active-section highlighting.
  */
 
-"use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+
+import { useState, useMemo, useEffect, useRef, useId } from "react";
 import { ChevronDown, ChevronRight, List } from "lucide-react";
 
 interface TocEntry {
@@ -61,6 +64,8 @@ function parseEntries(html: string): TocEntry[] {
 }
 
 export function ArticleToc({ html }: { html: string }) {
+  const translateInterface = useInterfaceTranslations("interface");
+  const contentsId = useId();
   const [isOpen, setIsOpen] = useState(true);
   const [activeId, setActiveId] = useState<string>("");
   const entries = useMemo(() => parseEntries(html), [html]);
@@ -95,11 +100,11 @@ export function ArticleToc({ html }: { html: string }) {
   return (
     <>
       {/* Desktop: sticky sidebar — rendered by parent layout, this is the content */}
-      <nav className="hidden lg:block" aria-label="Table of contents">
+      <nav className="hidden lg:block" aria-label={translateInterface("me331da0741fb")}>
         <div className="flex items-center gap-2 mb-3 px-1">
           <List className="h-4 w-4 text-muted-foreground" />
-          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            Contents
+          <span className="text-[13px] font-medium text-foreground">
+            {translateInterface("m437aea62a5bd")}
           </span>
         </div>
         <ol className="list-none space-y-0.5">
@@ -111,7 +116,7 @@ export function ArticleToc({ html }: { html: string }) {
                   entry.level === 3 ? "pl-5" : ""
                 } ${
                   activeId === entry.id
-                    ? "text-primary bg-primary/5 font-medium"
+                    ? "text-foreground bg-muted font-medium"
                     : "text-muted-foreground hover:text-foreground hover:bg-accent/40"
                 }`}
               >
@@ -126,10 +131,12 @@ export function ArticleToc({ html }: { html: string }) {
       <div className="lg:hidden mb-4 border border-border rounded-xl bg-card/60 shadow-sm overflow-hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-controls={contentsId}
           className="flex items-center gap-2 w-full px-3.5 py-2.5 text-sm font-semibold text-foreground hover:bg-accent/30 transition-colors"
         >
           <List className="h-4 w-4 text-muted-foreground" />
-          <span>Contents</span>
+          <span>{translateInterface("m437aea62a5bd")}</span>
           {isOpen ? (
             <ChevronDown className="h-3.5 w-3.5 ml-auto text-muted-foreground" />
           ) : (
@@ -138,7 +145,7 @@ export function ArticleToc({ html }: { html: string }) {
         </button>
 
         {isOpen && (
-          <nav className="px-3.5 pb-3 pt-0.5">
+          <nav id={contentsId} aria-label={translateInterface("articleContents")} className="px-3.5 pb-3 pt-0.5">
             <ol className="list-none space-y-px">
               {entries.map((entry) => (
                 <li

@@ -1,8 +1,11 @@
+"use client";
+
+import { useTranslations as useInterfaceTranslations } from "next-intl";
 /**
  * Language Selector — Client component for choosing Wikipedia language
  */
 
-"use client";
+
 
 import { useState, useMemo } from "react";
 import { Check, Search, Globe } from "lucide-react";
@@ -22,6 +25,8 @@ export function LanguageSelector({
   languages,
   currentLanguage,
 }: LanguageSelectorProps) {
+  const translateInterface = useInterfaceTranslations("interface");
+
   const [selected, setSelected] = useState(currentLanguage);
   const [search, setSearch] = useState("");
   const [saving, setSaving] = useState(false);
@@ -61,14 +66,13 @@ export function LanguageSelector({
       <div className="flex items-center gap-2 mb-4 p-3 rounded-lg bg-accent/50 border border-border/40">
         <Globe className="h-4 w-4 text-primary" />
         <span className="text-sm font-medium">
-          Current:{" "}
+          {translateInterface("mc09f632874c2")}{" "}
           {languages.find((l) => l.code === selected)?.localName ?? selected} (
           {selected})
         </span>
         {saving && (
           <span className="text-xs text-muted-foreground ml-auto">
-            Saving...
-          </span>
+            {translateInterface("mdc85af8f2b1d")}</span>
         )}
       </div>
 
@@ -77,7 +81,7 @@ export function LanguageSelector({
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <input
           type="text"
-          placeholder="Search languages..."
+          placeholder={translateInterface("m7858b9baa709")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full pl-10 pr-4 py-2 text-sm border border-border/60 rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
@@ -88,8 +92,7 @@ export function LanguageSelector({
       <div className="max-h-80 overflow-y-auto rounded-lg border border-border/40">
         {filtered.length === 0 ? (
           <div className="p-4 text-center text-sm text-muted-foreground">
-            No matching languages
-          </div>
+            {translateInterface("mee43d3205df1")}</div>
         ) : (
           <div className="divide-y divide-border/30">
             {filtered.map((lang) => (

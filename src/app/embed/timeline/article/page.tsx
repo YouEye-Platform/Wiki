@@ -1,3 +1,4 @@
+import { getTranslations as getInterfaceTranslations } from "next-intl/server";
 /**
  * Wiki Timeline Embed — Article Read Card
  *
@@ -20,11 +21,13 @@ interface PageProps {
 export default async function TimelineArticlePage({
   searchParams,
 }: PageProps) {
+  const translateInterface = await getInterfaceTranslations("interface");
+
   const params = await searchParams;
   const { slug, lang = "en" } = params;
 
   if (!slug) {
-    return <ErrorCard message="No article specified" />;
+    return <ErrorCard message={translateInterface("mc1846ea0d5d5")} />;
   }
 
   try {
@@ -64,8 +67,7 @@ export default async function TimelineArticlePage({
             <div className="flex items-center gap-1.5 mb-1">
               <BookOpen className="h-3.5 w-3.5 text-blue-500" />
               <span className="text-[11px] font-medium text-blue-500">
-                Read Article
-              </span>
+                {translateInterface("m4536a47de9e8")}</span>
               {lang !== "en" && (
                 <span className="text-[10px] text-muted-foreground bg-muted px-1 rounded">
                   {lang}
@@ -100,7 +102,7 @@ export default async function TimelineArticlePage({
       </div>
     );
   } catch {
-    return <ErrorCard message="Failed to load article" />;
+    return <ErrorCard message={translateInterface("m715411442623")} />;
   }
 }
 

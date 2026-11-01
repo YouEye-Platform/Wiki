@@ -1,3 +1,4 @@
+import { getActivityTranslator } from "@/i18n/activity";
 /**
  * Timeline Event Emitter for Wiki App
  *
@@ -61,8 +62,10 @@ export async function emitArticleReadEvent(
   articleSlug: string,
   articleTitle: string,
   excerpt: string,
-  domain: string
+  domain: string,
+  timestamp = new Date().toISOString()
 ): Promise<void> {
+  const { t } = await getActivityTranslator(userId);
   if (shouldDebounce(userId, "wiki-article-read", articleSlug)) {
     return;
   }
@@ -72,8 +75,8 @@ export async function emitArticleReadEvent(
   await postTimelineEntry(userId, "history", {
     app_id: "wiki",
     entry_type: "wiki-article-read",
-    title: `Read: ${articleTitle}`,
-    timestamp: new Date().toISOString(),
+    title: t("m5f6ab4dfaf0f", {title: articleTitle}),
+    timestamp,
     embed_path: `/embed/timeline/article?slug=${encodeURIComponent(articleSlug)}&lang=en`,
     tags: { slug: articleSlug },
     data: {
@@ -98,8 +101,10 @@ export async function emitArticleEditEvent(
   articleSlug: string,
   articleTitle: string,
   editDescription: string,
-  domain: string
+  domain: string,
+  timestamp = new Date().toISOString()
 ): Promise<void> {
+  const { t } = await getActivityTranslator(userId);
   if (shouldDebounce(userId, "wiki-article-edit", articleSlug)) {
     return;
   }
@@ -109,8 +114,8 @@ export async function emitArticleEditEvent(
   await postTimelineEntry(userId, "history", {
     app_id: "wiki",
     entry_type: "wiki-article-edit",
-    title: `Edited: ${articleTitle}`,
-    timestamp: new Date().toISOString(),
+    title: t("m94427bbf53fc", {title: articleTitle}),
+    timestamp,
     embed_path: `/embed/timeline/article?slug=${encodeURIComponent(articleSlug)}&lang=en`,
     tags: { slug: articleSlug },
     data: {

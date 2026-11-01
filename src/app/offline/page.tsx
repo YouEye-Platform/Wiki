@@ -1,3 +1,7 @@
+"use client";
+
+
+import { useTranslations as useInterfaceTranslations } from "next-intl";
 /**
  * Offline Fallback Page — Wiki App
  *
@@ -5,11 +9,13 @@
  * Auto-reloads when connectivity returns.
  */
 
-"use client";
+
 
 import { useEffect, useState } from "react";
 
 export default function OfflinePage() {
+  const translateInterface = useInterfaceTranslations("interface");
+
   const [isOnline, setIsOnline] = useState(false);
 
   useEffect(() => {
@@ -44,12 +50,11 @@ export default function OfflinePage() {
         </svg>
       </div>
 
-      <h1 className="mb-2 text-2xl font-bold text-foreground">You&apos;re offline</h1>
+      <h1 className="mb-2 text-2xl font-bold text-foreground">{translateInterface("m050be7950a63")}</h1>
       <p className="mb-6 max-w-sm text-muted-foreground">
-        Wiki needs an internet connection to fetch articles.
-        {isOnline
-          ? " Connection restored — reloading..."
-          : " We'll reload automatically when you're back online."}
+        {translateInterface("m1c19232881ae")}{isOnline
+          ? translateInterface("m7ef5fb4d2285")
+          : translateInterface("mb04711e09d6b")}
       </p>
 
       {!isOnline && (
@@ -57,8 +62,7 @@ export default function OfflinePage() {
           onClick={() => window.location.reload()}
           className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
         >
-          Try again
-        </button>
+          {translateInterface("md8b8392e2c54")}</button>
       )}
     </div>
   );

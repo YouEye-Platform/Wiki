@@ -1,10 +1,13 @@
+"use client";
+
+import { useTranslations as useInterfaceTranslations } from "next-intl";
 /**
  * Home Page Client Sections — localStorage-backed dashboard panels
  *
  * Reading List section that hydrates from localStorage on the client side.
  */
 
-"use client";
+
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -15,6 +18,8 @@ import {
 } from "@/lib/reading-history";
 
 export function ReadingListSection({ lang }: { lang: string }) {
+  const translateInterface = useInterfaceTranslations("interface");
+
   const [items, setItems] = useState<BookmarkEntry[]>([]);
 
   useEffect(() => {
@@ -26,8 +31,7 @@ export function ReadingListSection({ lang }: { lang: string }) {
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
           <Bookmark className="h-4 w-4 text-muted-foreground" />
-          Reading list
-        </h2>
+          {translateInterface("ma24b1588e1d0")}</h2>
       </div>
       {items.length > 0 ? (
         <div className="space-y-0.5">
@@ -45,8 +49,7 @@ export function ReadingListSection({ lang }: { lang: string }) {
         </div>
       ) : (
         <p className="text-xs text-muted-foreground py-4 text-center">
-          Save articles to read later
-        </p>
+          {translateInterface("ma7840444db49")}</p>
       )}
     </section>
   );

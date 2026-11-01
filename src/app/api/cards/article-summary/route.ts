@@ -1,3 +1,4 @@
+import {getTranslations as getInterfaceTranslations} from "next-intl/server";
 /**
  * Article Summary Info Card API
  *
@@ -28,6 +29,7 @@ function extractArticleInfo(
 }
 
 export async function GET(request: Request) {
+  const translateInterface = await getInterfaceTranslations("interface");
   const session = await getSession("ye-wiki").catch(() => null);
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { searchParams } = new URL(request.url);
@@ -78,7 +80,7 @@ export async function GET(request: Request) {
       facts: infoboxFacts,
       actions: [
         {
-          label: "Read full article",
+          label: translateInterface("md93d77988d88"),
           url: `${appBase}/wiki/${encodeURIComponent(title)}${lang !== "en" ? `?lang=${lang}` : ""}`,
         },
         {

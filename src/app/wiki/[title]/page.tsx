@@ -1,3 +1,4 @@
+import { getTranslations as getInterfaceTranslations } from "next-intl/server";
 /**
  * Article Viewer Page — Three-column layout with sticky TOC sidebar
  *
@@ -40,6 +41,9 @@ export default async function ArticlePage({
   params,
   searchParams,
 }: PageProps) {
+  const actionTimestamp = new Date().toISOString();
+  const translateInterface = await getInterfaceTranslations("interface");
+
   const { title } = await params;
   const decoded = decodeURIComponent(title);
   const sp = await searchParams;
@@ -91,19 +95,20 @@ export default async function ArticlePage({
       decoded,
       summary.title ?? decoded,
       summary.extract ?? "",
-      domain
+      domain,
+      actionTimestamp
     ).catch(() => {});
   }
 
   const tabItems = [
-    { label: "Article", href: null, active: true },
-    { label: "Talk", href: `${wikiUrl.replace("/wiki/", "/wiki/Talk:")}`, active: false },
-    { label: "Read", href: null, active: false },
-    { label: "View history", href: `${wikiUrl}?action=history`, active: false },
+    { label: translateInterface("m29d94922512b"), href: null, active: true },
+    { label: translateInterface("m449f5a775762"), href: `${wikiUrl.replace("/wiki/", "/wiki/Talk:")}`, active: false },
+    { label: translateInterface("m9b9a8d05a7ec"), href: null, active: false },
+    { label: translateInterface("ma5932bc4ce51"), href: `${wikiUrl}?action=history`, active: false },
   ];
 
   return (
-    <div className="max-w-[1100px] mx-auto px-4 py-4">
+    <div className="wiki-reading-page max-w-[1100px] mx-auto px-4 py-4">
       {/* ── Top nav ── */}
       <div className="flex items-center justify-between mb-3">
         <Link
@@ -111,8 +116,7 @@ export default async function ArticlePage({
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          Main page
-        </Link>
+          {translateInterface("mca4442da33d2")}</Link>
         <div className="flex items-center gap-3">
           {lang !== "en" && (
             <span className="text-xs text-muted-foreground bg-accent/50 px-2 py-0.5 rounded-md border border-border">
@@ -134,7 +138,7 @@ export default async function ArticlePage({
       {/* ── Article title ── */}
       <header className="mb-1">
         <div className="flex items-start justify-between gap-3">
-          <h1 className="text-[1.75rem] leading-tight font-serif font-normal text-foreground">
+          <h1 className="text-[2.125rem] leading-tight font-serif font-normal text-foreground">
             {displayTitle}
           </h1>
           <BookmarkButton
@@ -170,7 +174,7 @@ export default async function ArticlePage({
                 key={tab.label}
                 className={`px-3 py-2 text-sm transition-colors border-b-2 ${
                   tab.active
-                    ? "text-primary border-primary font-medium"
+                    ? "text-foreground border-foreground font-medium"
                     : "text-muted-foreground border-transparent"
                 }`}
               >
@@ -182,8 +186,7 @@ export default async function ArticlePage({
         {articleLangs.length > 0 && (
           <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs text-muted-foreground px-2 py-1 rounded-md bg-accent/50 border border-border">
             <Globe className="h-3 w-3" />
-            {articleLangs.length} languages
-          </span>
+            {articleLangs.length} {" "}{translateInterface("m6cb574fa10b6")}</span>
         )}
       </div>
 
@@ -199,10 +202,10 @@ export default async function ArticlePage({
       )}
 
       {/* ── Three-column layout ── */}
-      <div className="flex gap-6">
+      <div className="wiki-reading-layout flex gap-8">
         {/* Left sidebar — sticky TOC (desktop only) */}
-        <aside className="hidden lg:block w-52 shrink-0">
-          <div className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto pr-2 scrollbar-thin">
+        <aside className="hidden lg:block w-[190px] shrink-0">
+          <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2 scrollbar-thin">
             <ArticleToc html={rewrittenHtml} />
           </div>
         </aside>
@@ -227,7 +230,7 @@ export default async function ArticlePage({
                 />
               </div>
             )}
-            <p className="text-[15px] leading-[1.7] text-foreground/90 font-serif">
+            <p className="wiki-lead text-[15px] leading-[1.8] text-foreground/90">
               {summary.extract}
             </p>
             <div className="clear-both" />
