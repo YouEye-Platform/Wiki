@@ -22,6 +22,7 @@ import {
   generateOAuthState,
 } from "../../auth/identity";
 import { createSession, getSessionCookieName } from "../../auth/session";
+import { isYouEyeAdmin } from "../../auth/admin";
 
 interface AuthRouteConfig {
   /** App ID, e.g. "ye-cinema" */
@@ -90,7 +91,7 @@ export function createCallbackHandler(config: AuthRouteConfig) {
     if (!userInfo) return NextResponse.redirect(new URL("/api/auth/sso", request.url));
     if (!userInfo.sid) return NextResponse.redirect(new URL("/api/auth/sso", request.url));
 
-    const isAdmin = (userInfo.groups || []).some((g: string) => g.toLowerCase().includes("admin"));
+    const isAdmin = isYouEyeAdmin(userInfo.groups);
     const sessionToken = await createSession({
       userId: userInfo.sub,
         identitySessionId: userInfo.sid,
