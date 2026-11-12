@@ -1,15 +1,11 @@
-import { installedRelease } from "@/lib/installed-release";
 import { NextResponse } from "next/server";
-import packageJson from "../../../../package.json";
+import { BUILD_VERSION } from "@/lib/build-version";
 
 export async function GET() {
-  const release = await installedRelease("wiki", packageJson.version);
   return NextResponse.json({
   id: "ye-wiki",
   name: "Wiki",
-  version: release?.version ?? "unknown",
-    buildVersion: packageJson.version,
-    release,
+  version: BUILD_VERSION,
   description: "Privacy-friendly Wikipedia reader with 300+ languages",
   icon: "BookOpen",
   accent_color: "#3b82f6",

@@ -1,14 +1,12 @@
 {
   "name": "ye-app-wiki",
-  "version": "0.6.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "pnpm run i18n:check && node scripts/reproducible-next.cjs && node scripts/postbuild.mjs && node scripts/bundle-node-runtime.mjs",
     "start": "next start",
     "test": "node --test tests/*.spec.mjs",
-    "release:prepare": "node scripts/prepare-release.mjs",
-    "release:check": "node scripts/prepare-release.mjs --check",
     "lint": "eslint",
     "typecheck": "tsc --noEmit --pretty false",
     "i18n:check": "node scripts/check-i18n-source.mjs && node scripts/check-i18n.mjs"
