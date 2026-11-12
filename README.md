@@ -4,7 +4,7 @@ Privacy-friendly article reader for the [YouEye](https://github.com/YouEye-Platf
 
 Wiki runs as a native YouEye app. It is installed by the Control Panel from GitHub releases, receives identity and launch context from YouEye, and exposes dashboard, settings, and notification surfaces back to the platform.
 
-`VERSION` holds the release line; each build is `X.Y.Z-rc.N` (see [CONTRIBUTING.md](CONTRIBUTING.md)).
+`VERSION` holds the release line; each build is `X.Y.Z-dev.N` (see [CONTRIBUTING.md](CONTRIBUTING.md)).
 
 ## Features
 
@@ -47,7 +47,7 @@ pnpm build
 The source-owned `.youeye/build/app` entrypoint produces an unsigned
 `standalone.tar` and the release copy of `youeye-app.yaml`; releases are checked
 by SHA-256 digest. It requires the build environment described in
-`.youeye/build/manifest.json` and `YOUEYE_VERSION` (`X.Y.Z-rc.N` on the line in
+`.youeye/build/manifest.json` and `YOUEYE_VERSION` (`X.Y.Z-dev.N` on the line in
 `VERSION`). Release tags are `v<version>` on every channel.
 See [PUBLIC_RELEASE_POLICY.md](PUBLIC_RELEASE_POLICY.md) for publication rules.
 
