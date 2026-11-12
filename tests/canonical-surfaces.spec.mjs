@@ -31,9 +31,9 @@ test("Wiki publishes canonical surfaces in runtime and install manifests", () =>
   assert.doesNotMatch(route, /\n\s+timeline_embeds:\s*\[/);
 
   assert.match(yaml, versionPattern());
-  assert.match(yaml, /surfaceSchemaVersion: 1/);
+  assert.match(yaml, /^schema: youeye\.app\.v1$/m);
   assert.match(yaml, /- id: featured-article/);
   assert.match(yaml, /kind: settings-panel/);
   assert.match(yaml, /kind: info-card/);
-  assert.match(yaml, /- wiki-article-edit/);
+  assert.match(yaml, /triggers: \[[^\]]*\bwiki-article-edit\b/);
 });
