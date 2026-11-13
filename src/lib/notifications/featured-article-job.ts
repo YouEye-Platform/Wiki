@@ -21,7 +21,7 @@ let lastRunDate: string | null = null;
 let intervalId: ReturnType<typeof setInterval> | null = null;
 
 /**
- * This legacy scheduler has no app-owned recipient contract. A scoped app
+ * This scheduler has no app-owned recipient contract yet. A scoped app
  * credential does not authorize the browser/admin user directory; denial is
  * expected until recipients can come from an authenticated app subscription.
  */

@@ -35,7 +35,7 @@ test("missing/corrupt runtime identity and browser use fail before any unauthent
   assert.throws(() => load(env, true)(), /server-only/);
 });
 
-test("legacy featured scheduler sends scoped credentials and cannot turn admin-directory denial into recipients", async () => {
+test("featured scheduler sends scoped credentials and cannot turn admin-directory denial into recipients", async () => {
   for (const runtime of [env, {}]) {
     const source = readFileSync(new URL("../src/lib/notifications/featured-article-job.ts", import.meta.url), "utf8");
     const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;

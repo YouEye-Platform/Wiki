@@ -50,7 +50,7 @@ test("Wiki declares the Wave 3A surface contract", () => {
   // account isolation are exercised by locale-propagation.spec.mjs.
 });
 
-test("Wiki runtime source no longer emits legacy embed messages", () => {
+test("Wiki runtime source emits no removed embed message types", () => {
   const combined = sourceFiles("src").map((file) => read(file)).join("\n");
   assert.doesNotMatch(combined, /youeye-embed-ready|youeye-embed-resize|youeye-card-ready|youeye-app-settings-resize|contentHeight|settings\?embed=true/);
 });
