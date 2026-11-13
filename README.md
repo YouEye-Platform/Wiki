@@ -89,7 +89,7 @@ out of source, browser bundles and logs. Public health/manifests do not need a
 service credential. Rotation and restore reinject a credential and prove it
 before marking integration ready.
 
-The legacy featured-article scheduler cannot enumerate the platform's
+The featured-article scheduler cannot enumerate the platform's
 administrator user directory with an app credential. It sends scoped machine
 identity and leaves recipients unavailable on denial. Automatic delivery needs
 an app-owned authenticated subscription contract; do not grant the scheduler
