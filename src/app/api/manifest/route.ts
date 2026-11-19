@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { BUILD_VERSION } from "@/lib/build-version";
+import { APP_VERSION } from "@/lib/app-version";
 
 export async function GET() {
   return NextResponse.json({
   id: "ye-wiki",
   name: "Wiki",
-  version: BUILD_VERSION,
+  version: APP_VERSION,
   description: "Privacy-friendly Wikipedia reader with 300+ languages",
   icon: "BookOpen",
   accent_color: "#3b82f6",
